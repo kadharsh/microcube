@@ -34,8 +34,22 @@ tft.image(0, 0, 'boot_img.bmp') #use this bg for this img (0x583D72)
 '''
 Date calculator
 calculates dates from list returned by rtc.now()
+(year, month, day, hour, minute, second)
 '''
-# TO-DO
+
+def getDate():
+    now = rtc.now()
+    month_list = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+    weak_list = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
+    t = [0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4]
+    y = now[0] % 100
+    y -= (now[1]<3)
+    w = int((y + y/4 - y/100 + y/400 + t[now[1]-1] + now[2]) % 7)
+
+    month = month_list[now[1]-1]
+    weak  = weak_list[w-1]
+    date = weak +" "+ str(now[2]) +" "+ month
+    return(date)
 
 '''****************************************'''
 
@@ -108,7 +122,7 @@ def home():
     tft.font(tft.FONT_Ubuntu)
     tft.text(60,16, "28*C", transparent = True, color=0xFFFFFF)
     tft.font("FreeSansBold24.fon")
-    tft.text(2,80, "WED 28 APR", transparent = True, color=0xFFD82B)
+    tft.text(2,80, getDate(), transparent = True, color=0xFFD82B)
     tft.font("FreeSansBold40.fon")
     butbox()
     
@@ -119,7 +133,7 @@ def home():
             tft.font("FreeSansBold12.fon")
             tft.text(60,16, "28*C", transparent = True, color=0xFFFFFF)
             tft.font("FreeSansBold24.fon")
-            tft.text(2,80, "WED 28 APR", transparent = True, color=0xffcb70)
+            tft.text(2,80, getDate(), transparent = True, color=0xffcb70)
             tft.font("FreeSansBold40.fon")
             tft.text(30,35, formatTime(), transparent = True, color=0xffff00)
             butbox()
@@ -164,3 +178,4 @@ b2 = Pin(22, Pin.IN, Pin.PULL_UP, trigger=Pin.IRQ_FALLING, handler=getbtn, debou
 b3 = Pin(23, Pin.IN, Pin.PULL_UP, trigger=Pin.IRQ_FALLING, handler=getbtn, debounce=6000)
 
 home() #to display homepage
+
