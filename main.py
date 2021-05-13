@@ -1,4 +1,3 @@
-# This is oops branch
 import display, time, uos, network, machine
 import lcd_tft
 Pin = machine.Pin
@@ -89,35 +88,30 @@ def butbox():
     
 '''********************'''
 
+def tic(timer):
+    global prvTime
+    curTime = formatTime()
+    if(curTime != prvTime):
+        tft.image(0, 0, 'wall1.bmp')
+        tft.font("FreeSansBold12.fon")
+        tft.text(60,16, "28*C", transparent = True, color=0xFFFFFF)
+        tft.font("FreeSansBold24.fon")
+        tft.text(2,80, getDate(), transparent = True, color=0xffcb70)
+        tft.font("FreeSansBold40.fon")
+        tft.text(30,35, formatTime(), transparent = True, color=0xffff00)
+        butbox()
+        prvTime = curTime
+        
 '''
 Function which displays the homescreen
 (The screen with time)
 '''
 def home():
-    prvTime = ''
     tft.clear(0x4d91ff)
     tft.set_bg(0x4d91ff)
-    tft.image(0, 0, 'wall1.bmp')
-    tft.font(tft.FONT_Ubuntu)
-    tft.text(60,16, "28*C", transparent = True, color=0xFFFFFF)
-    tft.font("FreeSansBold24.fon")
-    tft.text(2,80, getDate(), transparent = True, color=0xFFD82B)
-    tft.font("FreeSansBold40.fon")
-    butbox()
-    
-    while True:
-        curTime = formatTime()
-        if(curTime != prvTime):
-            tft.image(0, 0, 'wall1.bmp')
-            tft.font("FreeSansBold12.fon")
-            tft.text(60,16, "28*C", transparent = True, color=0xFFFFFF)
-            tft.font("FreeSansBold24.fon")
-            tft.text(2,80, getDate(), transparent = True, color=0xffcb70)
-            tft.font("FreeSansBold40.fon")
-            tft.text(30,35, formatTime(), transparent = True, color=0xffff00)
-            butbox()
-            prvTime = curTime
-        time.sleep_ms(1000)
+    #To update time
+    timer = machine.Timer(0)
+    timer.init(period=1000, mode=machine.Timer.PERIODIC, callback=tic)
         
 '''******************************************'''
 
