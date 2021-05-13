@@ -9,28 +9,6 @@ tft.font(tft.FONT_DefaultSmall,transparent=True,color=tft.WHITE)
 
 tft.image(0, 0, 'boot_img.bmp') #use this bg for this img (0x583D72)
 
-#mount sdcard
-#tft.text(tft.CENTER,90,"Mounting SD card...")
-#uos.sdconfig(uos.SDMODE_SPI, clk=14, mosi=15, miso=2, cs=13, maxspeed=16)
-#err = False
-
-#try:
-#    uos.mountsd()
-#except:
-#    time.sleep_ms(200)
-#    tft.rect(0,88,160,14,0x583D72,0x583D72)
-#    tft.text(tft.CENTER,90,"Sd mounting failed")
-#    err = True
-
-#if(not err):
-#    time.sleep_ms(200)
-#    tft.rect(0,88,160,14,0x583D72,0x583D72)
-#    tft.text(tft.CENTER,90,"Sd mount complete")
-#else:
-#    tft.text(tft.CENTER,90,"Mounted")
-
-#connect to wifi
-
 '''
 Date calculator
 calculates dates from list returned by rtc.now()
