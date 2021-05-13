@@ -1,3 +1,4 @@
+# This is oops branch
 import display, time, uos, network, machine
 import lcd_tft
 Pin = machine.Pin
@@ -78,9 +79,9 @@ to draw box for button
 def butbox():
     #drawing box for button
     #tft.rect(0  , 109, 160, 20,color=0x6a6a6a, fillcolor= 0x6a6a6a)
-    tft.rect(0  , 111, 52, 17, color=0x6a6a6a, fillcolor= 0x000000)
-    tft.rect(52 , 111, 56, 17, color=0x6a6a6a, fillcolor= 0x000000)
-    tft.rect(108, 111, 52, 17, color=0x6a6a6a, fillcolor= 0x000000)
+    tft.rect(0  , 111, 52, 17, color=0x6a6a6a, fillcolor= 0x111111)
+    tft.rect(52 , 111, 56, 17, color=0x6a6a6a, fillcolor= 0x111111)
+    tft.rect(108, 111, 52, 17, color=0x6a6a6a, fillcolor= 0x111111)
     tft.font("FreeSansBold12.fon")
     tft.text(20 , 114, "<", transparent = True, color=0xdedede)
     tft.text(70 , 114, "OK",transparent = True, color=0xdedede)
