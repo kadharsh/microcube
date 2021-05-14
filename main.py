@@ -64,7 +64,6 @@ This function is called when button is pressed
 def getbtn(btn):
     if(btn == b1):
         print("Button 1 pressed")
-        print(throw_an_error) #this variable is not defined so exicution will stop
     elif(btn == b2):
         print("Button 2 pressed")
     elif(btn == b3):
