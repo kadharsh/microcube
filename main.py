@@ -45,6 +45,7 @@ def formatTime():
         meridiem = "PM"
         hour = h - 12
     else:
+        hour = h
         meridiem = "AM"
     if(hour < 10):
         h_txt = '0'+str(hour)
@@ -64,6 +65,7 @@ This function is called when button is pressed
 def getbtn(btn):
     if(btn == b1):
         print("Button 1 pressed")
+        print(throw_an_error) #this variable is not defined so exicution will stop
     elif(btn == b2):
         print("Button 2 pressed")
     elif(btn == b3):
@@ -76,6 +78,8 @@ def getbtn(btn):
 to draw box for button
 '''
 def butbox():
+    #drawing box for button
+    #tft.rect(0  , 109, 160, 20,color=0x6a6a6a, fillcolor= 0x6a6a6a)
     tft.rect(0  , 111, 52, 17, color=0x6a6a6a, fillcolor= 0x111111)
     tft.rect(52 , 111, 56, 17, color=0x6a6a6a, fillcolor= 0x111111)
     tft.rect(108, 111, 52, 17, color=0x6a6a6a, fillcolor= 0x111111)
