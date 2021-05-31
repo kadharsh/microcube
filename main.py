@@ -45,6 +45,7 @@ def formatTime():
         meridiem = "PM"
         hour = h - 12
     else:
+        hour = h
         meridiem = "AM"
     if(hour < 10):
         h_txt = '0'+str(hour)
@@ -64,6 +65,7 @@ This function is called when button is pressed
 def getbtn(btn):
     if(btn == b1):
         print("Button 1 pressed")
+        print(throw_an_error) #this variable is not defined so exicution will stop
     elif(btn == b2):
         print("Button 2 pressed")
     elif(btn == b3):
@@ -78,45 +80,40 @@ to draw box for button
 def butbox():
     #drawing box for button
     #tft.rect(0  , 109, 160, 20,color=0x6a6a6a, fillcolor= 0x6a6a6a)
-    tft.rect(0  , 111, 52, 17, color=0x6a6a6a, fillcolor= 0x000000)
-    tft.rect(52 , 111, 56, 17, color=0x6a6a6a, fillcolor= 0x000000)
-    tft.rect(108, 111, 52, 17, color=0x6a6a6a, fillcolor= 0x000000)
+    tft.rect(0  , 111, 52, 17, color=0x6a6a6a, fillcolor= 0x111111)
+    tft.rect(52 , 111, 56, 17, color=0x6a6a6a, fillcolor= 0x111111)
+    tft.rect(108, 111, 52, 17, color=0x6a6a6a, fillcolor= 0x111111)
     tft.font("FreeSansBold12.fon")
     tft.text(20 , 114, "<", transparent = True, color=0xdedede)
     tft.text(70 , 114, "OK",transparent = True, color=0xdedede)
     tft.text(128, 114, ">", transparent = True, color=0xdedede)
     
 '''********************'''
-
+prvTime = ''
+def tic(timer):
+    global prvTime
+    curTime = formatTime()
+    if(curTime != prvTime):
+        tft.image(0, 0, 'wall1.bmp')
+        tft.font("FreeSansBold12.fon")
+        tft.text(60,16, "28*C", transparent = True, color=0xFFFFFF)
+        tft.font("FreeSansBold24.fon")
+        tft.text(2,80, getDate(), transparent = True, color=0xffcb70)
+        tft.font("FreeSansBold40.fon")
+        tft.text(30,35, formatTime(), transparent = True, color=0xffff00)
+        butbox()
+        prvTime = curTime
+        
 '''
 Function which displays the homescreen
 (The screen with time)
 '''
 def home():
-    prvTime = ''
     tft.clear(0x4d91ff)
     tft.set_bg(0x4d91ff)
-    tft.image(0, 0, 'wall1.bmp')
-    tft.font(tft.FONT_Ubuntu)
-    tft.text(60,16, "28*C", transparent = True, color=0xFFFFFF)
-    tft.font("FreeSansBold24.fon")
-    tft.text(2,80, getDate(), transparent = True, color=0xFFD82B)
-    tft.font("FreeSansBold40.fon")
-    butbox()
-    
-    while True:
-        curTime = formatTime()
-        if(curTime != prvTime):
-            tft.image(0, 0, 'wall1.bmp')
-            tft.font("FreeSansBold12.fon")
-            tft.text(60,16, "28*C", transparent = True, color=0xFFFFFF)
-            tft.font("FreeSansBold24.fon")
-            tft.text(2,80, getDate(), transparent = True, color=0xffcb70)
-            tft.font("FreeSansBold40.fon")
-            tft.text(30,35, formatTime(), transparent = True, color=0xffff00)
-            butbox()
-            prvTime = curTime
-        time.sleep_ms(1000)
+    #To update time
+    timer = machine.Timer(0)
+    timer.init(period=1000, mode=machine.Timer.PERIODIC, callback=tic)
         
 '''******************************************'''
 
